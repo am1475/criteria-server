@@ -191,5 +191,8 @@ def process_indirect_file():
         return jsonify({"error": f"Failed to process the file: {str(e)}"}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
-    app.run(host="0.0.0.0", port=port, debug=True)
+    # 1) Grab the Render‑set PORT (or default to 5000 locally)
+    port = int(os.environ.get('PORT', 5000))
+
+    # 2) Bind to 0.0.0.0 so Render’s health check can reach you
+    app.run(host='0.0.0.0', port=port, debug=True)
